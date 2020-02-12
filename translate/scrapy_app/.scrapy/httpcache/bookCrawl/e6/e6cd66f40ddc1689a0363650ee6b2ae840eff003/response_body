@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /images/
+Disallow: /content/
+Disallow: /ui/
+Disallow: /js/
+Disallow: /*?* 
+
+Sitemap: https://blog.csdn.net/s/sitemap_index/index_site_map.xml
+Sitemap: https://blog.csdn.net/s/sitemap_index/sitemap_list_index_category.xml
+Sitemap: https://blog.csdn.net/s/sitemap_index/sitemap_list_index_list.xml
+Sitemap: https://blog.csdn.net/s/sitemap_index/sitemap_list_index_time.xml
