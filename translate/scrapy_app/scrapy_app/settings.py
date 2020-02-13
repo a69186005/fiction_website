@@ -33,7 +33,7 @@ NEWSPIDER_MODULE = 'scrapy_app.spiders'
 # USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; AcooBrowser; .NET CLR 1.1.4322; .NET CLR 2.0.50727)"
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -68,8 +68,9 @@ COOKIES_ENABLED = False
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
   'scrapy_app.middlewares.ScrapyAppDownloaderMiddleware': None,
+  'crapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': None,
   'scrapy_app.middlewares.RandomUserAgentMiddleware': 400,
-# 'scrapy_app.middlewares.RandomProxy': 544
+  'scrapy_app.middlewares.RandomProxy': 544
 }
 
 # Enable or disable extensions
@@ -99,15 +100,11 @@ ITEM_PIPELINES = {
 
 # Enable and configure HTTP caching (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
-# HTTPCACHE_ENABLED = True
+#HTTPCACHE_ENABLED = True
 #HTTPCACHE_EXPIRATION_SECS = 0
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Ip Pool
-PROXY_LIST = [
-  {'ip_port': 'http://36.27.28.126:9999'},
-  {'ip_port': 'http://115.216.79.203:9999'},
-  {'ip_port': 'http://114.231.45.24:9999'}
-]
+# Get proxy_ip link address
+PROXY_ADDRESS = 'http://d.jghttp.golangapi.com/getip?num=1&type=2&pro=&city=0&yys=0&port=1&pack=17612&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='

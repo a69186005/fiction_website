@@ -134,32 +134,38 @@ class RandomUserAgentMiddleware(object):
 # Random ip proxy from ip pool 
 
 from scrapy import signals
-import random
-from scrapy_app.settings import PROXY_LIST
+import requests
+from scrapy_app.settings import PROXY_ADDRESS
+import json
+
+proxy_ip = ""
 
 class RandomProxy(object):
     def process_request(self, request, spider):
-
-        proxy = random.choice(PROXY_LIST)
-        request.meta['proxy'] = proxy['ip_port']
+        # proxy = random.choice(PROXY_LIST)
+        global proxy_ip
+        if proxy_ip == "":
+            proxy_ip = self.get_proxy_ip()
+        else:
+            request.meta['proxy'] = proxy_ip
     
     def process_response(self, request, response, spider):  
-        if response.status != 200:  
-            proxy = random.choice(PROXY_LIST) 
+        global proxy_ip
+        if response.status != 200 and response.status != 404:  
+            proxy_ip = get_proxy_ip() 
             # print("this is response ip:"+proxy)  
             # 对当前reque加上代理  
-            request.meta['proxy'] = proxy['ip_port']
+            request.meta['proxy'] = proxy_ip
             return request  
-        return response  
-    '''
-    def get_random_proxy(self):   
-        while 1:
-            f = PROXY_LIST 
-            proxies = f.readlines()
-            if proxies:  
-                break  
-            else:  
-                time.sleep(1)  
-        
-        return proxy  
-    '''
+        return response
+    
+    def get_proxy_ip(self):   
+        res = requests.get(PROXY_ADDRESS)
+        res_data = res.json()
+        proxy = ''
+        if res_data["code"] == 0:
+            proxy = "http://" + str(res_data["data"][0]["ip"]) + str(res_data["data"][0]["port"])
+        else:
+            return False
+        return proxy
+    
