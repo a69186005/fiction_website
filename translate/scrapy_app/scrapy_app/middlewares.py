@@ -151,7 +151,7 @@ class RandomProxy(object):
     
     def process_response(self, request, response, spider):  
         global proxy_ip
-        if response.status != 200 and response.status != 404:  
+        if response.status != 200:  
             proxy_ip = get_proxy_ip() 
             # print("this is response ip:"+proxy)  
             # 对当前reque加上代理  
