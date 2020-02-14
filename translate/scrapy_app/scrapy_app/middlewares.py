@@ -151,13 +151,16 @@ class RandomProxy(object):
     
     def process_response(self, request, response, spider):  
         global proxy_ip
-        if response.status != 200:  
+        if response.status != 200 or hasattr(response, 'exception'):
             proxy_ip = get_proxy_ip() 
             # print("this is response ip:"+proxy)  
             # 对当前reque加上代理  
             request.meta['proxy'] = proxy_ip
             return request  
         return response
+    
+    def process_exception(self, request, exception, spider):
+
     
     def get_proxy_ip(self):   
         res = requests.get(PROXY_ADDRESS)

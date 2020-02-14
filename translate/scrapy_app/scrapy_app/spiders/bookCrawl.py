@@ -18,12 +18,7 @@ class BookcrawlSpider(CrawlSpider):
         'https://www.quanben.net/quanben/2.html',
         'https://www.quanben.net/quanben/3.html',
         'https://www.quanben.net/quanben/4.html',
-        'https://www.quanben.net/quanben/5.html',
-        'https://www.quanben.net/quanben/6.html',
-        'https://www.quanben.net/quanben/7.html',
-        'https://www.quanben.net/quanben/8.html',
-        'https://www.quanben.net/quanben/9.html',
-        'https://www.quanben.net/quanben/10.html'
+        'https://www.quanben.net/quanben/5.html'
         ]
     
     def parse(self, response):
