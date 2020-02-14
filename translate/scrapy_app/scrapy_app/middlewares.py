@@ -159,9 +159,6 @@ class RandomProxy(object):
             return request  
         return response
     
-    def process_exception(self, request, exception, spider):
-
-    
     def get_proxy_ip(self):   
         res = requests.get(PROXY_ADDRESS)
         res_data = res.json()
