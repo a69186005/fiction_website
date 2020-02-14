@@ -159,7 +159,7 @@ class RandomProxy(object):
             return request  
         return response
     
-    def process_exception(self, request, expection, spider):
+    def process_exception(self, request, exception, spider):
         global proxy_ip
         if isinstance(expection, self.EXCEPTIONS_TO_RETRY):
             proxy_ip = get_proxy_ip() 
