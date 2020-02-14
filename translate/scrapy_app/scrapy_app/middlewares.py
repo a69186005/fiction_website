@@ -159,6 +159,18 @@ class RandomProxy(object):
             return request  
         return response
     
+    def process_exception(self, request, expection, spider):
+        global proxy_ip
+        if isinstance(expection, TimeoutError):
+            proxy_ip = get_proxy_ip() 
+            request.meta['proxy'] = proxy_ip
+            return request
+        elif isinstance(expection, TCPTimedOutError):
+            proxy_ip = get_proxy_ip() 
+            request.meta['proxy'] = proxy_ip
+            return request
+        return response
+    
     def get_proxy_ip(self):   
         res = requests.get(PROXY_ADDRESS)
         res_data = res.json()
