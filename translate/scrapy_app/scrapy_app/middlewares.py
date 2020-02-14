@@ -164,7 +164,7 @@ class RandomProxy(object):
         res_data = res.json()
         proxy = ''
         if res_data["code"] == 0:
-            proxy = "http://" + str(res_data["data"][0]["ip"]) + str(res_data["data"][0]["port"])
+            proxy = "http://" + str(res_data["data"][0]["ip"]) + ':' + str(res_data["data"][0]["port"])
         else:
             return False
         return proxy
