@@ -161,6 +161,7 @@ class RandomProxy(object):
         global proxy_ip
         if proxy_ip == "":
             proxy_ip = self.get_proxy_ip()
+            request.meta['proxy'] = proxy_ip
         else:
             request.meta['proxy'] = proxy_ip
     
@@ -177,6 +178,7 @@ class RandomProxy(object):
     def process_exception(self, request, exception, spider):
         global proxy_ip
         if isinstance(exception, self.EXCEPTIONS_TO_RETRY):
+            print(exception)
             proxy_ip = self.get_proxy_ip() 
             request.meta['proxy'] = proxy_ip
             proxy_ip = ""
@@ -186,6 +188,7 @@ class RandomProxy(object):
     def get_proxy_ip(self):   
         res = requests.get(PROXY_OTHER_ADDRESS)
         res_data = res.json()
+        # print(res_data["code"])
         if res_data["code"] == 0:
             proxy = "http://" + str(res_data["data"][0]["ip"]) + ':' + str(res_data["data"][0]["port"])
         else:
