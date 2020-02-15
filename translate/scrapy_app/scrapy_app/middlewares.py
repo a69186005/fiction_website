@@ -138,11 +138,19 @@ import requests
 from scrapy_app.settings import PROXY_ADDRESS
 import json
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
+from twisted.internet import defer
+from twisted.internet.error import TimeoutError, DNSLookupError, \
+        ConnectionRefusedError, ConnectionDone, ConnectError, \
+        ConnectionLost, TCPTimedOutError
+from twisted.web.client import ResponseFailed
+
+from scrapy.exceptions import NotConfigured
+from scrapy.core.downloader.handlers.http11 import TunnelError
 
 proxy_ip = ""
 
 class RandomProxy(object):
-    
+
     EXCEPTIONS_TO_RETRY = (defer.TimeoutError, TimeoutError, DNSLookupError,
                            ConnectionRefusedError, ConnectionDone, ConnectError,
                            ConnectionLost, TCPTimedOutError, ResponseFailed,
@@ -158,18 +166,18 @@ class RandomProxy(object):
     
     def process_response(self, request, response, spider):  
         global proxy_ip
-        if response.status != 200 or hasattr(response, 'exception'):
-            proxy_ip = get_proxy_ip() 
+        if response.status != 200:
+            proxy_ip = self.get_proxy_ip() 
             # print("this is response ip:"+proxy)  
             # 对当前reque加上代理  
             request.meta['proxy'] = proxy_ip
-            return request  
+            return request
         return response
     
     def process_exception(self, request, exception, spider):
         global proxy_ip
         if isinstance(exception, self.EXCEPTIONS_TO_RETRY):
-            proxy_ip = get_proxy_ip() 
+            proxy_ip = self.get_proxy_ip() 
             request.meta['proxy'] = proxy_ip
             return request
         return response
