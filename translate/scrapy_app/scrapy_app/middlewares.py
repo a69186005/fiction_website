@@ -135,7 +135,7 @@ class RandomUserAgentMiddleware(object):
 
 from scrapy import signals
 import requests
-from scrapy_app.settings import PROXY_ADDRESS
+from scrapy_app.settings import PROXY_ADDRESS, PROXY_OTHER_ADDRESS
 import json
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
 from twisted.internet import defer
@@ -167,10 +167,10 @@ class RandomProxy(object):
     def process_response(self, request, response, spider):  
         global proxy_ip
         if response.status != 200:
-            proxy_ip = self.get_proxy_ip() 
+            proxy_ip = ""
             # print("this is response ip:"+proxy)  
             # 对当前reque加上代理  
-            request.meta['proxy'] = proxy_ip
+            del request.meta['proxy']
             return request
         return response
     
@@ -179,13 +179,13 @@ class RandomProxy(object):
         if isinstance(exception, self.EXCEPTIONS_TO_RETRY):
             proxy_ip = self.get_proxy_ip() 
             request.meta['proxy'] = proxy_ip
+            proxy_ip = ""
+            del request.meta['proxy']
             return request
-        return response
     
     def get_proxy_ip(self):   
-        res = requests.get(PROXY_ADDRESS)
+        res = requests.get(PROXY_OTHER_ADDRESS)
         res_data = res.json()
-        proxy = ''
         if res_data["code"] == 0:
             proxy = "http://" + str(res_data["data"][0]["ip"]) + ':' + str(res_data["data"][0]["port"])
         else:

@@ -111,3 +111,4 @@ ITEM_PIPELINES = {
 
 # Get proxy_ip link address
 PROXY_ADDRESS = 'http://d.jghttp.golangapi.com/getip?num=1&type=2&pro=&city=0&yys=0&port=1&pack=17612&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='
+PROXY_OTHER_ADDRESS = 'http://d.jghttp.golangapi.com/getip?num=1&type=2&pro=&city=0&yys=0&port=1&time=3&ts=0&ys=0&cs=0&lb=1&sb=0&pb=4&mr=1&regions='
