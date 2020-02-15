@@ -137,10 +137,17 @@ from scrapy import signals
 import requests
 from scrapy_app.settings import PROXY_ADDRESS
 import json
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
 
 proxy_ip = ""
 
 class RandomProxy(object):
+    
+    EXCEPTIONS_TO_RETRY = (defer.TimeoutError, TimeoutError, DNSLookupError,
+                           ConnectionRefusedError, ConnectionDone, ConnectError,
+                           ConnectionLost, TCPTimedOutError, ResponseFailed,
+                           IOError, TunnelError)
+
     def process_request(self, request, spider):
         # proxy = random.choice(PROXY_LIST)
         global proxy_ip
