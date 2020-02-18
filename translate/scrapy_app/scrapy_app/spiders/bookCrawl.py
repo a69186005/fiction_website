@@ -14,11 +14,16 @@ class BookcrawlSpider(CrawlSpider):
     name = 'bookCrawl'
     domains = ['https://www.quanben.net']
     start_urls = [
-        'https://www.quanben.net/quanben/6.html',
-        'https://www.quanben.net/quanben/7.html',
-        'https://www.quanben.net/quanben/8.html',
-        'https://www.quanben.net/quanben/9.html',
-        'https://www.quanben.net/quanben/10.html'
+        'https://www.quanben.net/quanben/11.html',
+        'https://www.quanben.net/quanben/12.html',
+        'https://www.quanben.net/quanben/13.html',
+        'https://www.quanben.net/quanben/14.html',
+        'https://www.quanben.net/quanben/15.html',
+        'https://www.quanben.net/quanben/16.html',
+        'https://www.quanben.net/quanben/17.html',
+        'https://www.quanben.net/quanben/18.html',
+        'https://www.quanben.net/quanben/19.html',
+        'https://www.quanben.net/quanben/20.html',
         ]
     
     def parse(self, response):
