@@ -14,16 +14,26 @@ class BookcrawlSpider(CrawlSpider):
     name = 'bookCrawl'
     domains = ['https://www.quanben.net']
     start_urls = [
-        'https://www.quanben.net/quanben/11.html',
-        'https://www.quanben.net/quanben/12.html',
-        'https://www.quanben.net/quanben/13.html',
-        'https://www.quanben.net/quanben/14.html',
-        'https://www.quanben.net/quanben/15.html',
-        'https://www.quanben.net/quanben/16.html',
-        'https://www.quanben.net/quanben/17.html',
-        'https://www.quanben.net/quanben/18.html',
-        'https://www.quanben.net/quanben/19.html',
-        'https://www.quanben.net/quanben/20.html',
+        'https://www.quanben.net/quanben/21.html',
+        'https://www.quanben.net/quanben/22.html',
+        'https://www.quanben.net/quanben/23.html',
+        'https://www.quanben.net/quanben/24.html',
+        'https://www.quanben.net/quanben/25.html',
+        'https://www.quanben.net/quanben/26.html',
+        'https://www.quanben.net/quanben/27.html',
+        'https://www.quanben.net/quanben/28.html',
+        'https://www.quanben.net/quanben/29.html',
+        'https://www.quanben.net/quanben/30.html',
+        'https://www.quanben.net/quanben/31.html',
+        'https://www.quanben.net/quanben/32.html',
+        'https://www.quanben.net/quanben/33.html',
+        'https://www.quanben.net/quanben/34.html',
+        'https://www.quanben.net/quanben/35.html',
+        'https://www.quanben.net/quanben/36.html',
+        'https://www.quanben.net/quanben/37.html',
+        'https://www.quanben.net/quanben/38.html',
+        'https://www.quanben.net/quanben/39.html',
+        'https://www.quanben.net/quanben/40.html',
         ]
     
     def parse(self, response):

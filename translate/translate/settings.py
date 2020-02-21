@@ -126,3 +126,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
      os.path.join(BASE_DIR, 'static'),
  ]
+
+# Baidu Translate APPID
+
+BAIDU_APPID = '20200221000386872'
+BAIDU_SECRET_KEY = '5sAg2tooWe7SIYMxI_YH'

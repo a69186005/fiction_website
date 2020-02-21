@@ -12,7 +12,9 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password, check_password
 from scrapyd_api import ScrapydAPI
 
-from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent, TranslationBooks, TanslationBookContent
+from .utils import baiduTranslate # use baidu to translate fictions from chinese to english or other langs
+
+from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent
 ## import some functions
 import os
 import json
