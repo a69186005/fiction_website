@@ -2,6 +2,7 @@ from uuid import uuid4
 from urllib.parse import urlparse
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
+from django.core import serializers
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.views.decorators.http import require_POST, require_http_methods
@@ -12,10 +13,11 @@ from django.urls import reverse
 from django.contrib.auth.hashers import make_password, check_password
 from scrapyd_api import ScrapydAPI
 
-from .utils import baiduTranslate # use baidu to translate fictions from chinese to english or other langs
+from .utils.baiduTranslate import BaiduTranslation  # use baidu to translate fictions from chinese to english or other langs
 
-from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent
-## import some functions
+from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent, TanslationBookContentEN, TranslationBooksEN
+
+# import some functions
 import os
 import json
 
@@ -113,7 +115,64 @@ class CheckSpider(View):
         return JsonResponse({'error': str(e)})
     else:
       return JsonResponse({'status': status})
-      
+
+class Translate(View):
+  def get(self, request, *arg, **kwargs):
+    books = OriginalBooks.objects.all()
+
+    for book in books:
+      books_en = TranslationBooksEN()
+      books_en.book = book
+      books_en.book_name = BaiduTranslation(book.book_name, 'zh', 'en').translate()
+      print(BaiduTranslation(book.book_name, 'zh', 'en').translate())
+      books_en.book_author = BaiduTranslation(book.book_author, 'zh', 'en').translate()
+      books_en.book_category = BaiduTranslation(book.book_category, 'zh', 'en').translate()
+      books_en.book_abstract = BaiduTranslation(book.book_abstract, 'zh', 'en').translate()
+      books_en.total_words_tran = 0
+      books_en.save()
+
+    return JsonResponse({'data': books})
+
+class TranslateContent(View):
+  def get(self, request, *arg, **kwargs):
+    books_en = TranslationBooksEN.objects.all()
+
+    for book_en in books_en:
+      book_content = OriginalBooksContent.objects.filter(book = book_en.book)
+      if book_content:
+        for content in book_content:
+          book_content_en = TanslationBookContentEN()
+          book_content_en.book = book_en
+          book_content_en.chapter_name = BaiduTranslation(content.chapter_name, 'zh', 'en').translate()
+          print(BaiduTranslation(content.chapter_name, 'zh', 'en').translate())
+          book_content_en.chapter_index = content.chapter_index
+          book_content_en.chapter_content = BaiduTranslation(content.chapter_content, 'zh', 'en').translate()
+          book_content_en.words = content.words
+          book_content_en.save()
+  
+    return JsonResponse({'data': books_en})
+
+class GetTranslateBookEN(View):
+  def get(self, request, *arg, **kwargs):
+    books_en = TranslationBooksEN.objects.all()
+
+    return JsonResponse({
+      'status': 'success',
+      'data': json.loads(serializers.serialize('json', books_en, ensure_ascii=False))
+    })
+
+class GetTranslateContentEN(View):
+  def get(self, request, *arg, **kwargs):
+    book_id = request.GET['book']
+    content_en = TanslationBookContentEN.objects.filter(book_id=book_id)
+    print(content_en)
+
+    return JsonResponse({
+      'status': 'success',
+      'data': json.loads(serializers.serialize('json', content_en, ensure_ascii=False))
+    })
+
+
 
 def is_valid_url(url):
   validate = URLValidator()

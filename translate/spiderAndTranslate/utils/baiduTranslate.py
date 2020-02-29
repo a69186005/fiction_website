@@ -37,30 +37,34 @@ class BaiduTranslation(object):
   def __spliteText(self):
     text = self.text
     text_length = len(text)
-    divide_part = (text_length // MAX_PART_WORDS) + 2 # based on the length of text to divide some parts, every part is under 1900 
     text_newGroup = []
-    textGroup = text.split('\n')
-    textGroup_length = len(textGroup)
-    divide_words = len(textGroup) // divide_part
-    start = 0
-    end = len(textGroup)
-    for i in range(divide_part):
-      end = start + divide_words
-      new_conetnt = ''
-      last_content = ''
-      if end > textGroup_length:
-        part_content = textGroup[start:]
-        for content in part_content:
-          last_content = last_content + content + '~'
-        text_newGroup.append(last_content)
-      else:
-        part_content = textGroup[start:end]
-        for content in part_content:
-          new_conetnt = new_conetnt + content + '~'
-        text_newGroup.append(new_conetnt)
-        start += divide_words
-    
-    print(len(text_newGroup))
+    if text_length < 1900:
+      text_newGroup.append(text)
+
+    else:
+      divide_part = (text_length // MAX_PART_WORDS) + 2 # based on the length of text to divide some parts, every part is under 1900 
+      textGroup = text.split('\n')
+      textGroup_length = len(textGroup)
+      divide_words = len(textGroup) // divide_part
+      start = 0
+      end = len(textGroup)
+      for i in range(divide_part):
+        end = start + divide_words
+        new_conetnt = ''
+        last_content = ''
+        if end > textGroup_length:
+          part_content = textGroup[start:]
+          for content in part_content:
+            last_content = last_content + content + '~'
+          text_newGroup.append(last_content)
+        else:
+          part_content = textGroup[start:end]
+          for content in part_content:
+            new_conetnt = new_conetnt + content + '~'
+          text_newGroup.append(new_conetnt)
+          start += divide_words
+      
+    # print(len(text_newGroup))
     return text_newGroup
   
   def translate(self):
@@ -83,14 +87,11 @@ class BaiduTranslation(object):
         except Exception as e:
           print (e)
       time.sleep(1)
-    
     return results
   
 
 '''
-f = open('./test.txt', 'r', encoding='utf-8')
-text = f.read()
-f.close()
+text = '星海之主'
 fromLang = 'zh'
 toLang = 'en'
 translate = BaiduTranslation(text, fromLang, toLang)

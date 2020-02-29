@@ -48,7 +48,7 @@ class OriginalBooksContent(models.Model):
 class TranslationBooksEN(models.Model):
   book = models.ForeignKey(OriginalBooks, verbose_name='Book Information', on_delete=models.CASCADE)
   book_name = models.CharField(max_length=120, verbose_name='Book Name', default='')
-  book_author = models.CharField(max_length=30, verbose_name='Book Author', default='')
+  book_author = models.CharField(max_length=200, verbose_name='Book Author', default='')
   book_category = models.CharField(max_length=120, verbose_name='Book Category', default='')
   book_tags = models.CharField(max_length=120, verbose_name='Book Tags', default='')
   book_abstract = models.TextField(verbose_name='Book Abstract', default='')
@@ -62,8 +62,8 @@ class TranslationBooksEN(models.Model):
     return self.book_name
 
 class TanslationBookContentEN(models.Model):
-  book = models.ForeignKey(OriginalBooks, verbose_name='Book Information', on_delete=models.CASCADE)
-  chapter_name = models.CharField(max_length=50, verbose_name='Chapter Name', default='')
+  book = models.ForeignKey(TranslationBooksEN, verbose_name='Book Information', on_delete=models.CASCADE)
+  chapter_name = models.CharField(max_length=150, verbose_name='Chapter Name', default='')
   chapter_index = models.IntegerField(verbose_name='Chapter Index')
   chapter_content = models.TextField(verbose_name='Chapter Content', blank=True)
   words = models.IntegerField(verbose_name='Chapter words')
@@ -75,24 +75,10 @@ class TanslationBookContentEN(models.Model):
   def __str__(self):
     return self.chapter_name
 
-class TanslationBookContentVI(models.Model):
-  book = models.ForeignKey(OriginalBooks, verbose_name='Book Information', on_delete=models.CASCADE)
-  chapter_name = models.CharField(max_length=50, verbose_name='Chapter Name', default='')
-  chapter_index = models.IntegerField(verbose_name='Chapter Index')
-  chapter_content = models.TextField(verbose_name='Chapter Content', blank=True)
-  words = models.IntegerField(verbose_name='Chapter words')
-
-  class Meta:
-    verbose_name = 'Translation Book Content'
-    verbose_name_plural = verbose_name
-  
-  def __str__(self):
-    return self.chapter_name
-
 class TranslationBooksVI(models.Model):
   book = models.ForeignKey(OriginalBooks, verbose_name='Book Information', on_delete=models.CASCADE)
   book_name = models.CharField(max_length=120, verbose_name='Book Name', default='')
-  book_author = models.CharField(max_length=30, verbose_name='Book Author', default='')
+  book_author = models.CharField(max_length=200, verbose_name='Book Author', default='')
   book_category = models.CharField(max_length=120, verbose_name='Book Category', default='')
   book_tags = models.CharField(max_length=120, verbose_name='Book Tags', default='')
   book_abstract = models.TextField(verbose_name='Book Abstract', default='')
@@ -104,3 +90,17 @@ class TranslationBooksVI(models.Model):
   
   def __str__(self):
     return self.book_name
+
+class TanslationBookContentVI(models.Model):
+  book = models.ForeignKey(TranslationBooksVI, verbose_name='Book Information', on_delete=models.CASCADE)
+  chapter_name = models.CharField(max_length=150, verbose_name='Chapter Name', default='')
+  chapter_index = models.IntegerField(verbose_name='Chapter Index')
+  chapter_content = models.TextField(verbose_name='Chapter Content', blank=True)
+  words = models.IntegerField(verbose_name='Chapter words')
+
+  class Meta:
+    verbose_name = 'Translation Book Content'
+    verbose_name_plural = verbose_name
+  
+  def __str__(self):
+    return self.chapter_name

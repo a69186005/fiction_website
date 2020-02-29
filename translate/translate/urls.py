@@ -21,7 +21,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.static import serve
 
 # import views
-from spiderAndTranslate.views import Login, ChineseBook, EnglishBook, Crawl
+from spiderAndTranslate.views import Login, ChineseBook, EnglishBook, Crawl, Translate, TranslateContent
+from spiderAndTranslate.views import GetTranslateBookEN, GetTranslateContentEN
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +30,8 @@ urlpatterns = [
     url(r'^chinesebook/', csrf_exempt(ChineseBook.as_view()), name="chinesebook"),
     url(r'^englishbook/', csrf_exempt(EnglishBook.as_view()), name="englishbook"),
     url(r'^spider/', csrf_exempt(Crawl.as_view()), name="spider"),
+    url(r'^translate/', csrf_exempt(Translate.as_view()), name="translate"),
+    url(r'^translateContent/', csrf_exempt(TranslateContent.as_view()), name="translateContent"),
+    url(r'^getTranslateBookEN/', csrf_exempt(GetTranslateBookEN.as_view()), name="getTranslateBookEN"),
+    url(r'^getTranslateContentEN/', csrf_exempt(GetTranslateContentEN.as_view()), name="getTranslateContentEN"),
 ]
