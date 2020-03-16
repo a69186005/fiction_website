@@ -11,7 +11,7 @@ django.setup()
 import requests
 import json
 
-from spiderAndTranslate.cd import UserProfile, OriginalBooks, OriginalBooksContent, TanslationBookContentEN, TranslationBooksEN
+from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent, TanslationBookContentEN, TranslationBooksEN
 from spiderAndTranslate.utils.baiduTranslate import BaiduTranslation
 
 books_en = TranslationBooksEN.objects.all()
