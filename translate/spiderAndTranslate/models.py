@@ -63,7 +63,7 @@ class TranslationBooksEN(models.Model):
 
 class TanslationBookContentEN(models.Model):
   book = models.ForeignKey(TranslationBooksEN, verbose_name='Book Information', on_delete=models.CASCADE)
-  chapter_name = models.CharField(max_length=255, verbose_name='Chapter Name', default='')
+  chapter_name = models.CharField(max_length=250, verbose_name='Chapter Name', default='')
   chapter_index = models.IntegerField(verbose_name='Chapter Index')
   chapter_content = models.TextField(verbose_name='Chapter Content', blank=True)
   words = models.IntegerField(verbose_name='Chapter words')
@@ -93,7 +93,7 @@ class TranslationBooksVI(models.Model):
 
 class TanslationBookContentVI(models.Model):
   book = models.ForeignKey(TranslationBooksVI, verbose_name='Book Information', on_delete=models.CASCADE)
-  chapter_name = models.CharField(max_length=255, verbose_name='Chapter Name', default='')
+  chapter_name = models.CharField(max_length=250, verbose_name='Chapter Name', default='')
   chapter_index = models.IntegerField(verbose_name='Chapter Index')
   chapter_content = models.TextField(verbose_name='Chapter Content', blank=True)
   words = models.IntegerField(verbose_name='Chapter words')
