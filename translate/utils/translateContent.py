@@ -35,5 +35,5 @@ for book_en in books_en:
           book_content_en.words = content.words
           book_content_en.save()
       except:
-        print("book_id:" + book_en + ";" + "book_index:" + book_content_en.chapter_index)
+        print("book_id:" + book_en.book_name + ";" + "book_index:" + book_content_en.chapter_index)
         print("save error")
