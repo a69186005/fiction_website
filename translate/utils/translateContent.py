@@ -19,7 +19,7 @@ books_en = TranslationBooksEN.objects.all()
 
 for book_en in books_en:
   book_content = OriginalBooksContent.objects.filter(book = book_en.book)
-  existed_book = TanslationBookContentEN.objects.filter(book = book_en.book)[0]
+  existed_book = TanslationBookContentEN.objects.filter(book = book_en)[0]
   if existed_book:
     print ("It is an existed book")
   else:
