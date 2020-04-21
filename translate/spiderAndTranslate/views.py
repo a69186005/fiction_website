@@ -154,7 +154,7 @@ class TranslateContent(View):
 
 class GetTranslateBookEN(View):
   def get(self, request, *arg, **kwargs):
-    books_en = TranslationBooksEN.objects.all()
+    books_en = TranslationBooksEN.objects.all()[:200]
 
     return JsonResponse({
       'status': 'success',
@@ -165,7 +165,7 @@ class GetTranslateContentEN(View):
   def get(self, request, *arg, **kwargs):
     book_id = request.GET['book']
     content_en = TanslationBookContentEN.objects.filter(book_id=book_id)
-    print(content_en)
+    # print(content_en)
 
     return JsonResponse({
       'status': 'success',
