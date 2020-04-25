@@ -16,6 +16,7 @@ from scrapyd_api import ScrapydAPI
 from .utils.baiduTranslate import BaiduTranslation  # use baidu to translate fictions from chinese to english or other langs
 
 from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent, TanslationBookContentEN, TranslationBooksEN
+from spiderAndTranslate.models import TranslationBooksVI, TanslationBookContentVI
 
 # import some functions
 import os
@@ -121,15 +122,15 @@ class Translate(View):
     books = OriginalBooks.objects.all()
 
     for book in books:
-      books_en = TranslationBooksEN()
-      books_en.book = book
-      books_en.book_name = BaiduTranslation(book.book_name, 'zh', 'en').translate()
+      books_VI = TranslationBooksVI()
+      books_VI.book = book
+      books_VI.book_name = BaiduTranslation(book.book_name, 'zh', 'en').translate()
       print(BaiduTranslation(book.book_name, 'zh', 'en').translate())
-      books_en.book_author = BaiduTranslation(book.book_author, 'zh', 'en').translate()
-      books_en.book_category = BaiduTranslation(book.book_category, 'zh', 'en').translate()
-      books_en.book_abstract = BaiduTranslation(book.book_abstract, 'zh', 'en').translate()
-      books_en.total_words_tran = 0
-      books_en.save()
+      books_VI.book_author = BaiduTranslation(book.book_author, 'zh', 'en').translate()
+      books_VI.book_category = BaiduTranslation(book.book_category, 'zh', 'en').translate()
+      books_VI.book_abstract = BaiduTranslation(book.book_abstract, 'zh', 'en').translate()
+      books_VI.total_words_tran = 0
+      books_VI.save()
 
     return JsonResponse({'data': books})
 
