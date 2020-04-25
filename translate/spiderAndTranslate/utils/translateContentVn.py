@@ -12,7 +12,7 @@ import requests
 import json
 
 from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksContent, TanslationBookContentVI, TranslationBooksVI
-from baiduTranslate import BaiduTranslation
+from baiduTranslateVn import BaiduTranslation
 
 books_VI = TranslationBooksVI.objects.all()
 
