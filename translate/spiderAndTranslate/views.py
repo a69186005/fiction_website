@@ -164,7 +164,7 @@ class GetTranslateBookEN(View):
 
 class GetTranslateBookVI(View):
   def get(self, request, *arg, **kwargs):
-    books_en = TranslationBooksVI.objects.all()[:200]
+    books_en = TranslationBooksVI.objects.all()[:240]
 
     return JsonResponse({
       'status': 'success',
