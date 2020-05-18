@@ -162,10 +162,19 @@ class GetTranslateBookEN(View):
       'data': json.loads(serializers.serialize('json', books_en, ensure_ascii=False))
     })
 
-class GetTranslateContentEN(View):
+class GetTranslateBookVI(View):
+  def get(self, request, *arg, **kwargs):
+    books_en = TranslationBooksVI.objects.all()[:200]
+
+    return JsonResponse({
+      'status': 'success',
+      'data': json.loads(serializers.serialize('json', books_en, ensure_ascii=False))
+    })
+
+class GetTranslateContentVI(View):
   def get(self, request, *arg, **kwargs):
     book_id = request.GET['book']
-    content_en = TanslationBookContentEN.objects.filter(book_id=book_id)
+    content_en = TanslationBookContentVI.objects.filter(book_id=book_id)
     # print(content_en)
 
     return JsonResponse({

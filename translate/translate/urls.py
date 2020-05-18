@@ -22,7 +22,7 @@ from django.views.static import serve
 
 # import views
 from spiderAndTranslate.views import Login, ChineseBook, EnglishBook, Crawl, Translate, TranslateContent
-from spiderAndTranslate.views import GetTranslateBookEN, GetTranslateContentEN
+from spiderAndTranslate.views import GetTranslateBookEN, GetTranslateContentEN, GetTranslateBookVI, GetTranslateContentVI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +34,6 @@ urlpatterns = [
     url(r'^translateContent/', csrf_exempt(TranslateContent.as_view()), name="translateContent"),
     url(r'^getTranslateBookEN/', csrf_exempt(GetTranslateBookEN.as_view()), name="getTranslateBookEN"),
     url(r'^getTranslateContentEN/', csrf_exempt(GetTranslateContentEN.as_view()), name="getTranslateContentEN"),
+    url(r'^getTranslateBookVI/', csrf_exempt(GetTranslateBookVI.as_view()), name="getTranslateBookVI"),
+    url(r'^getTranslateContentVI/', csrf_exempt(GetTranslateContentVI.as_view()), name="getTranslateContentVI"),
 ]

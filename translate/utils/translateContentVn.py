@@ -15,7 +15,7 @@ from spiderAndTranslate.models import UserProfile, OriginalBooks, OriginalBooksC
 from spiderAndTranslate.utils.baiduTranslateVn import BaiduTranslation
 
 
-books_vi = TranslationBooksEN.objects.all()
+books_vi = TranslationBooksVI.objects.all()
 
 for book_vi in books_vi:
   book_content = OriginalBooksContent.objects.filter(book = book_en.book)
