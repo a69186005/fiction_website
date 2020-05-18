@@ -22,7 +22,7 @@ from spiderAndTranslate.models import TranslationBooksVI, TanslationBookContentV
 import os
 import json
 
-scrapyd = ScrapydAPI('http://127.0.0.1:6800')
+# scrapyd = ScrapydAPI('http://127.0.0.1:6800')
 # Create your views here.
 
 class Login(View):
@@ -162,24 +162,35 @@ class GetTranslateBookEN(View):
       'data': json.loads(serializers.serialize('json', books_en, ensure_ascii=False))
     })
 
-class GetTranslateBookVI(View):
-  def get(self, request, *arg, **kwargs):
-    books_en = TranslationBooksVI.objects.all()[:240]
-
-    return JsonResponse({
-      'status': 'success',
-      'data': json.loads(serializers.serialize('json', books_en, ensure_ascii=False))
-    })
-
-class GetTranslateContentVI(View):
+class GetTranslateContentEN(View):
   def get(self, request, *arg, **kwargs):
     book_id = request.GET['book']
-    content_en = TanslationBookContentVI.objects.filter(book_id=book_id)
+    content_en = TanslationBookContentEN.objects.filter(book_id=book_id)
     # print(content_en)
 
     return JsonResponse({
       'status': 'success',
       'data': json.loads(serializers.serialize('json', content_en, ensure_ascii=False))
+    })
+
+class GetTranslateBookVI(View):
+  def get(self, request, *arg, **kwargs):
+    books_vi = TranslationBooksVI.objects.all()[:240]
+
+    return JsonResponse({
+      'status': 'success',
+      'data': json.loads(serializers.serialize('json', books_vi, ensure_ascii=False))
+    })
+
+class GetTranslateContentVI(View):
+  def get(self, request, *arg, **kwargs):
+    book_id = request.GET['book']
+    content_vi = TanslationBookContentVI.objects.filter(book_id=book_id)
+    # print(content_en)
+
+    return JsonResponse({
+      'status': 'success',
+      'data': json.loads(serializers.serialize('json', content_vi, ensure_ascii=False))
     })
 
 
