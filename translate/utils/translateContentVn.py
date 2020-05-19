@@ -18,8 +18,8 @@ from spiderAndTranslate.utils.baiduTranslateVn import BaiduTranslation
 books_vi = TranslationBooksVI.objects.all()
 
 for book_vi in books_vi:
-  book_content = OriginalBooksContent.objects.filter(book = books_vi.book)
-  existed_book = TanslationBookContentVI.objects.filter(book = books_vi)
+  book_content = OriginalBooksContent.objects.filter(book = book_vi.book)
+  existed_book = TanslationBookContentVI.objects.filter(book = book_vi)
   if existed_book:
     print ("It is an existed book")
   else:
