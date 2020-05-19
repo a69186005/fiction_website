@@ -28,6 +28,7 @@ for book_vi in books_vi:
         for content in book_content:
           book_content_vi = TanslationBookContentVI()
           book_content_vi.book = book_vi
+          print(content.chapter_name)
           book_content_vi.chapter_name = BaiduTranslation(content.chapter_name, 'zh', 'vie').translate()
           print(BaiduTranslation(content.chapter_name, 'zh', 'vie').translate())
           book_content_vi.chapter_index = content.chapter_index
